@@ -1,0 +1,21 @@
+{
+  "name": "xcompressor",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "build:macos": "electron-packager . --overwrite --platform=darwin --arch=x64 --prune=true --out=../release-builds",
+    "build:dmg": "electron-installer-dmg ../release-builds/xcompressor-darwin-x64/xcompressor.app XCompressor --out=../release-builds",
+    "build:linux": "electron-packager . --overwrite --platform=linux --arch=x64 --out=../release-builds"
+  },
+  "keywords": [],
+  "author": "Nicolas MORICET",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^17.1.2",
+    "electron-installer-debian": "^3.1.0",
+    "electron-installer-dmg": "^3.0.0",
+    "electron-packager": "^15.4.0"
+  }
+}

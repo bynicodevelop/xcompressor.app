@@ -1,0 +1,35 @@
+{
+  "functions": {
+    "source": ".output/server"
+  },
+  "hosting": {
+    "target": "xcompressor",
+    "public": ".output/public",
+    "cleanUrls": true,
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "function": "server"
+      }
+    ]
+  },
+  "emulators": {
+    "hosting": {
+      "port": 5003
+    },
+    "ui": {
+      "enabled": true
+    },
+    "auth": {
+      "port": 9099
+    },
+    "functions": {
+      "port": 5001
+    }
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "apps-34fcd"
+  },
+  "targets": {
+    "apps-34fcd": {
+      "hosting": {
+        "xcompressor": [
+          "xcompressor"
+        ]
+      }
+    }
+  }
+}
