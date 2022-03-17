@@ -93,9 +93,5 @@ watch(uploadedFilesArray.value, (files) => {
   uploadedFiles.value = uploadedFilesArray;
 });
 
-const onChange = (e) => {
-  console.log(e.target.files);
-};
-
 const openInputFile = () => inputFile.value.click();
 </script>
