@@ -1,13 +1,16 @@
 {
   "name": "xcompressor",
   "version": "1.0.0",
-  "description": "",
+  "description": "Drop your images and we will do the rest. All you have to do is upload your compressed images. XCompressor - The better way to compress your images",
   "main": "main.js",
   "scripts": {
     "start": "electron .",
     "build:macos": "electron-packager . --overwrite --platform=darwin --arch=x64 --prune=true --out=../release-builds",
     "build:dmg": "electron-installer-dmg ../release-builds/xcompressor-darwin-x64/xcompressor.app XCompressor --out=../release-builds",
-    "build:linux": "electron-packager . --overwrite --platform=linux --arch=x64 --out=../release-builds"
+    "build:linux": "electron-packager . --overwrite --platform=linux --arch=x64 --out=../release-builds",
+    "build:debian": "electron-installer-debian --src ../release-builds/xcompressor-linux-x64/ --dest ../release-builds --arch amd64 --config config.json",
+    "build:win": "electron-packager . --overwrite --platform=win32 --arch=x64 --out=../release-builds",
+    "build:win-setup": "electron-installer-windows --src ../release-builds/xcompressor-win32-x64/ --dest ../release-builds"
   },
   "keywords": [],
   "author": "Nicolas MORICET",
@@ -16,6 +19,7 @@
     "electron": "^17.1.2",
     "electron-installer-debian": "^3.1.0",
     "electron-installer-dmg": "^3.0.0",
+    "electron-installer-windows": "^3.0.0",
     "electron-packager": "^15.4.0"
   }
 }

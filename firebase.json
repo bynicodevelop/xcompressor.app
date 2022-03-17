@@ -6,11 +6,7 @@
     "target": "xcompressor",
     "public": ".output/public",
     "cleanUrls": true,
-    "ignore": [
-      "firebase.json",
-      "**/.*",
-      "**/node_modules/**"
-    ],
+    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
     "rewrites": [
       {
         "source": "**",
@@ -32,6 +28,7 @@
       "port": 5001
     },
     "firestore": {
+      "host": "127.0.0.1",
       "port": 8080
     }
   },

@@ -18,9 +18,8 @@ function createWindow() {
 
   let url = "https://xcompressor.app/apps";
 
-  url = "http://localhost:3000/apps";
-
-  win.openDevTools();
+  // url = "http://localhost:3000/apps";
+  // win.openDevTools();
 
   win.loadURL(`${url}?electron=1`);
 }

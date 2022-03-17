@@ -1,12 +1,12 @@
 <template>
-  <div
-    :style="`${isElectron ? '-webkit-app-region: drag' : ''}`"
-    :class="`flex flex-col h-screen px-5 py-5 ${isElectron ? 'pt-2' : ''}`"
-  >
+  <div :class="`flex flex-col h-screen px-5 py-5 ${isElectron ? 'pt-2' : ''}`">
     <NotificationComponent />
 
     <div class="md:flex md:items-center md:justify-between pb-5">
-      <div :class="`flex-1 min-w-0 ${isElectron ? 'ml-16' : ''}`">
+      <div
+        :style="`${isElectron ? '-webkit-app-region: drag' : ''}`"
+        :class="`flex-1 min-w-0 ${isElectron ? 'ml-16' : ''}`"
+      >
         <h1
           class="text-xl font-bold leading-7 text-gray-900 sm:text-xl sm:truncate text-center md:text-left"
         >
