@@ -5,8 +5,9 @@
     "build": "nuxi build",
     "start": "node .output/server/index.mjs",
     "deploy:local": "NITRO_PRESET=firebase yarn build && firebase emulators:start",
-    "deploy:dist": "NITRO_PRESET=firebase yarn build && firebase deploy",
-    "start:emulators": "kill-port --port 5001 && kill-port --port 5003 && firebase emulators:start"
+    "deploy:dist": "yarn deploy:firestore && NITRO_PRESET=firebase yarn build && firebase deploy",
+    "deploy:firestore": "firebase deploy --only firestore",
+    "start:emulators": "kill-port --port 5001 && kill-port --port 5003 && kill-port --port 8080 && firebase emulators:start"
   },
   "devDependencies": {
     "@nuxtjs/tailwindcss": "^5.0.1",
