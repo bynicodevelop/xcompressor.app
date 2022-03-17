@@ -1,8 +1,11 @@
 import imageCompression from "browser-image-compression";
+import UploadStatsRepository from "~~/repositories/UploadStatsRepository";
 
 export const useCompressorManager = () => {
     const { convertBytesToMB, percentReduction } = useUtils();
     const { co2Calculator } = useCo2Calculator();
+
+    const uploadStatsRepository = useState<UploadStatsRepository>('uploadStatsRepository').value;
 
     const sessionCookie = useCookie<Object>('__session');
 
@@ -132,21 +135,56 @@ export const useCompressorManager = () => {
     watch(uploadedFilesArray.value, async (value) => {
         showUploadZone.value = value.length === 0;
 
+        const stats = {
+            filesCompressed: 0,
+            co2: 0,
+        }
+
+        const compressionList = []
+
         for (const file in uploadedFilesArray.value) {
             if (Object.hasOwnProperty.call(uploadedFilesArray.value, file)) {
                 const element = uploadedFilesArray.value[file];
 
-                if (uploadedFilesArray.value[file]["compressedFile"] == null) {
-                    uploadedFilesArray.value[file]["compressedFile"] = await compressFiles(
-                        element.file
-                    );
 
-                    uploadedFilesArray.value[file]['co2'] = co2Calculator(uploadedFilesArray.value[file].file.size, uploadedFilesArray.value[file].compressedFile.size);
-                    uploadedFilesArray.value[file]['percentReduction'] = percentReduction(uploadedFilesArray.value[file].file.size, uploadedFilesArray.value[file].compressedFile.size);
+                if (uploadedFilesArray.value[file]["compressedFile"] == null) {
+                    compressionList.push(compress(element.file, file));
                 }
             }
         }
+
+        const result = await Promise.all(compressionList);
+
+        for (let index = 0; index < result.length; index++) {
+            const element = result[index];
+
+            uploadedFilesArray.value[element.index]["compressedFile"] = element.compressedFile;
+            uploadedFilesArray.value[element.index]["co2"] = element.co2;
+            uploadedFilesArray.value[element.index]["percentReduction"] = element.percentReduction;
+
+            stats.filesCompressed++;
+            stats.co2 += uploadedFilesArray.value[element.index]['co2'];
+        }
+
+        if (result.length > 0) {
+            try {
+                await uploadStatsRepository.updateCompressionStats(stats.filesCompressed, stats.co2);
+            } catch (e) {
+                console.log(e);
+            }
+        }
     });
+
+    const compress = async (file, index) => {
+        const compressedFile = await compressFiles(file);
+
+        return {
+            compressedFile,
+            co2: co2Calculator(file.size, compressedFile.size),
+            percentReduction: percentReduction(file.size, compressedFile.size),
+            index,
+        }
+    }
 
     return {
         showUploadZone,
