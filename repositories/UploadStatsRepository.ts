@@ -26,4 +26,22 @@ export default class UploadStatsRepository {
             });
         }
     }
+
+    async getStats() {
+        const globalStatsDocRef: DocumentReference = doc(this.firestore, 'xcompressor/global-stats');
+
+        const globalStatsDoc = await getDoc(globalStatsDocRef);
+
+        if (!globalStatsDoc.exists()) {
+            return {
+                filesCompressed: 0,
+                co2: 0,
+            };
+        } else {
+            return {
+                filesCompressed: globalStatsDoc.data().filesCompressed ?? 0,
+                co2: globalStatsDoc.data().co2 ?? 0,
+            };
+        }
+    }
 }
