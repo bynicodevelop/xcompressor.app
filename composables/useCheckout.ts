@@ -10,6 +10,7 @@ const schema = yup.object().shape({
 });
 
 export const useCheckout = () => {
+    const router = useRouter();
     const isLoading = ref(false);
 
     const products = [
@@ -35,25 +36,6 @@ export const useCheckout = () => {
     const cardExpirationError = ref(false);
     const cardCVC = ref('');
     const cardCVCError = ref(false);
-
-    // const getSubscriptions = async () => {
-    //     const requestOptions = {
-    //         method: "POST",
-    //         headers: { "Content-Type": "application/json" },
-    //         body: JSON.stringify({
-    //             subscriptionId: 'sub_1KegAZJdncNwYjeBdHsHQyxn',
-    //         }),
-    //     };
-
-    //     const response: Response = await fetch(
-    //         "/api/stripe/unsubscribe",
-    //         requestOptions
-    //     );
-
-    //     const result = await response.json();
-
-    //     console.log(result);
-    // }
 
     const onSubmit = async () => {
         emailError.value = false;
@@ -96,6 +78,10 @@ export const useCheckout = () => {
             const { subscriptionId } = await response.json();
 
             await stripeRepository.saveSubscription({ subscriptionId });
+
+            router.push({
+                name: "apps",
+            });
         } catch (error) {
             if (!error.errors) {
                 console.log(error);

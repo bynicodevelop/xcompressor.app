@@ -1,5 +1,5 @@
 import { Auth } from "firebase/auth";
-import { doc, DocumentReference, DocumentSnapshot, Firestore, getDoc, serverTimestamp, setDoc } from "firebase/firestore";
+import { deleteField, doc, DocumentReference, DocumentSnapshot, Firestore, getDoc, serverTimestamp, setDoc, updateDoc } from "firebase/firestore";
 
 
 export default class StripeRepository {
@@ -18,7 +18,7 @@ export default class StripeRepository {
 
         const subscriptionDocumentSnapshot: DocumentSnapshot = await getDoc(subscriptionDocumentRef);
 
-        if (!subscriptionDocumentSnapshot.exists()) {
+        if (subscriptionDocumentSnapshot.exists()) {
             await setDoc(subscriptionDocumentRef, {
                 subscription: {
                     subscriptionId,
@@ -29,6 +29,10 @@ export default class StripeRepository {
     }
 
     async getSubscription() {
+        if (!this.auth.currentUser.uid) {
+            return null;
+        }
+
         const { uid } = this.auth.currentUser;
 
         const subscriptionDocumentRef: DocumentReference = doc(this.firestore, `xcompressor/website/users/${uid}`);
@@ -43,6 +47,10 @@ export default class StripeRepository {
     }
 
     async removedSubscription() {
+        if (!this.auth.currentUser.uid) {
+            return null;
+        }
+
         const { uid } = this.auth.currentUser;
 
         const subscriptionDocumentRef: DocumentReference = doc(this.firestore, `xcompressor/website/users/${uid}`);
@@ -50,8 +58,8 @@ export default class StripeRepository {
         const subscriptionDocumentSnapshot: DocumentSnapshot = await getDoc(subscriptionDocumentRef);
 
         if (subscriptionDocumentSnapshot.exists()) {
-            await setDoc(subscriptionDocumentRef, {
-                subscription: {}
+            await updateDoc(subscriptionDocumentRef, {
+                subscription: deleteField()
             });
         }
     }

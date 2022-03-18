@@ -6,10 +6,10 @@
   >
     <div
       v-if="showUploadZone"
-      @click="openInputFile"
+      @click.self="openInputFile"
       @drop.prevent="uploadFiles"
       @dragover.prevent
-      class="grid place-items-center h-full w-full border-2 border-gray-300 border-dashed rounded-lg p-12 text-center hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+      class="grid place-items-center h-full w-full border-2 border-gray-300 border-dashed rounded-lg p-12 text-center hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 cursor-pointer"
     >
       <div>
         <svg
@@ -40,6 +40,29 @@
         <span class="mt-2 block text-xs text-gray-900">
           compress jpg, png. Max {{ maxFileSize }} MB.
         </span>
+        <ClientOnly>
+          <NuxtLink
+            v-if="subscriptionRef === null"
+            :to="{ name: 'pricing' }"
+            class="mt-2 inline-flex text-xs text-gray-900 justify-center md:justify-start items-center text-indigo-600 font-bold"
+          >
+            <svg
+              width="1em"
+              height="1em"
+              viewBox="0 0 20 20"
+              class="mr-1 text-indigo-600"
+            >
+              <g fill="none" fill-rule="evenodd">
+                <path
+                  d="M9.25 13.2H4.751c-.579 0-.94-.67-.648-1.203l5.25-9.599c.385-.705 1.397-.413 1.397.403v4h4.499c.579 0 .94.67.648 1.202l-5.25 9.599c-.385.705-1.397.413-1.397-.403v-4z"
+                  fill="currentColor"
+                ></path>
+              </g>
+            </svg>
+
+            Upload your images unlimited
+          </NuxtLink>
+        </ClientOnly>
       </div>
 
       <input
@@ -67,6 +90,8 @@ const {
   uploadFiles,
   uploadInputFiles,
 } = useCompressorManager();
+
+const { subscriptionRef } = useUser();
 
 const inputFile = ref(null);
 const inputFileModel = ref(null);

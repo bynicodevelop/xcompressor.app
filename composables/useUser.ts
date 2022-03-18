@@ -36,8 +36,6 @@ export const useUser = () => {
     }
 
     const unsubscribe = async () => {
-        console.log(subscriptionRef.value.subscriptionId);
-
         const requestOptions = {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -53,9 +51,6 @@ export const useUser = () => {
 
         const result = await response.json();
 
-        console.log(result);
-
-
         if (result.status === 'ok') {
             await stripeRepository.removedSubscription();
 
@@ -66,7 +61,7 @@ export const useUser = () => {
     onMounted(async () => {
         const subscription = await stripeRepository.getSubscription();
 
-        subscriptionRef.value = subscription;
+        subscriptionRef.value = (!subscription || subscription.subscriptionId === undefined) ? null : subscription;
     })
 
     return {
