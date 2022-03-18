@@ -5,8 +5,14 @@ service cloud.firestore {
       allow read, write: if false;
     }
 
-    match /xcompressor/{statRef} {
-      allow get, create, update: if true;
+    match /xcompressor {
+      match /global-stats/{statName=**} {
+        allow get, create, update: if true;
+      }
+
+      match /website/users/{userId} {
+        allow get, create, update: if true;
+      }
     }
   }
 }

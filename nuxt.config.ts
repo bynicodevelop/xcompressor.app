@@ -17,5 +17,6 @@ export default defineNuxtConfig({
         PROJECT_ID: process.env.PROJECT_ID,
         STORAGE_BUCKET: process.env.STORAGE_BUCKET,
         MESSAGING_SENDER_ID: process.env.MESSAGING_SENDER_ID,
+        STRIPE_PUBLISHABLE_KEY: process.env.STRIPE_PUBLISHABLE_KEY,
     },
 })

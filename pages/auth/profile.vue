@@ -32,6 +32,28 @@
           </div>
         </li>
 
+        <li v-if="subscriptionRef !== null" class="py-4">
+          <div class="flex items-center space-x-4">
+            <div class="flex-1 min-w-0">
+              <p class="text-sm font-medium text-gray-900 truncate">
+                Unsubscribe
+              </p>
+              <p class="text-sm text-gray-500 truncate">
+                Remove your subscription
+              </p>
+            </div>
+            <div>
+              <button
+                @click="unsubscribe"
+                type="button"
+                class="inline-flex items-center px-2.5 py-1.5 border border-transparent text-xs font-medium rounded shadow-sm text-white bg-orange-600 hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500"
+              >
+                Unsubscribe
+              </button>
+            </div>
+          </div>
+        </li>
+
         <li class="py-4">
           <div class="flex items-center space-x-4">
             <div class="flex-1 min-w-0">
@@ -58,7 +80,7 @@
 </template>
 
 <script setup>
-const { logout, deleteAccount } = useUser();
+const { subscriptionRef, logout, deleteAccount, unsubscribe } = useUser();
 
 definePageMeta({
   middleware: ["profile"],

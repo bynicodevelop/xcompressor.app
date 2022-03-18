@@ -83,12 +83,12 @@
               </p>
               <div class="mt-6">
                 <div class="rounded-md shadow">
-                  <a
-                    href="#"
+                  <NuxtLink
+                    :to="{ name: 'pricing-checkout' }"
                     class="flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-800 hover:bg-indigo-900"
                   >
                     Get Access
-                  </a>
+                  </NuxtLink>
                 </div>
               </div>
               <div class="mt-4 text-sm">

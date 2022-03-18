@@ -1,7 +1,7 @@
 {
   "private": true,
   "scripts": {
-    "dev": "nuxi dev",
+    "dev": "NODE_ENV=development nuxi dev",
     "build": "nuxi build",
     "start": "node .output/server/index.mjs",
     "deploy:local": "NITRO_PRESET=firebase yarn build && firebase emulators:start",
@@ -21,13 +21,16 @@
     "@heroicons/vue": "^1.0.6",
     "@tailwindcss/aspect-ratio": "^0.4.0",
     "@tailwindcss/forms": "^0.5.0",
+    "@vue-stripe/vue-stripe": "^4.4.2",
     "browser-image-compression": "^1.0.17",
     "file-saver": "^2.0.5",
     "firebase": "^9.6.8",
     "firebase-admin": "^10.0.2",
     "firebase-functions": "^3.18.1",
     "jszip": "^3.7.1",
+    "stripe": "^8.209.0",
     "tiny-emitter": "^2.1.0",
+    "vue-credit-card-validation": "^1.0.3",
     "yup": "^0.32.11"
   }
 }

@@ -1,7 +1,17 @@
+import Stripe from 'stripe';
+
 export default defineNuxtPlugin(async (nuxtApp) => {
     console.log("Plugin: default");
 
     const { DEFAULT_MAX_UPLOAD_PER_DAY, DEFAULT_MAX_FILE_SIZE } = useRuntimeConfig();
+
+    // const stripe = new Stripe(STRIPE_PUBLISHABLE_KEY, {
+    //     apiVersion: '2020-08-27',
+    //     typescript: true,
+    // });
+
+    // console.log(stripe);
+
 
     const sessionCookie = useCookie<Object>('__session', {
         expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 7),
